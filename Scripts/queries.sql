@@ -29,14 +29,16 @@ SELECT AVG(SALARIO) AS MEDIA_SALARIAL FROM FUNCIONARIO WHERE AREA_ATUACAO = 'PRO
 /*Consulta 4 - Quais clientes fizeram solicitações de suporte de um modelo em um determinado mês?
 Identificar os clientes que já realizaram solicitações de suporte de um modelo em um determinado mês. Responsável: Pedro
 */
+
 SELECT DISTINCT c.IDCLIENTE, c.NOME, c.CPF, c.EMAIL 
 FROM CLIENTE c
-JOIN SOLICITACAO s on c.IDCLIENTE = s.IDSOLICITACAO
-WHERE s.NOME_MODELO = <nome_modelo> AND
-                  EXTRACT(MONTH FROM  s.DATAHORA) = <mes>
+JOIN SOLICITACAO s on c.IDCLIENTE = s.ID_CLIENTE
+WHERE s.NOME_MODELO = <nome_modelo> 
+AND EXTRACT(MONTH FROM  s.DATAHORA) = <mes>;
 
 /*Consulta 5 - Quais dispositivos que foram vendidos nunca foram levados para suporte?
 Listar os dispositivos que foram vendidos e nunca foram levados para suporte. Responsável: Pedro*/
+
 SELECT c.NUMERO_SERIE, c.NOME_MODELO 
 FROM CELULAR c 
 LEFT JOIN SOLICITACAO s ON c.NUMERO_SERIE = s.NUMERO_SERIE 
@@ -46,7 +48,6 @@ WHERE c.IDPEDIDO IS NOT NULL AND s.NUMERO_SERIE IS NULL;
 Verificar quais modelos de celular estão disponíveis no estoque e quantas unidades há de cada um. Responsável: Gabriel
 */
 
-SQL:
 SELECT C.NOME_MODELO, COUNT(*) AS QUANTIDADE_DISPONIVEL
 FROM CELULAR C
 LEFT JOIN PEDIDO P ON C.IDPEDIDO = P.IDPEDIDO
@@ -58,12 +59,12 @@ Listar as solicitações de suporte com status "em andamento" ou "aberto", inclu
 */
 
 SELECT 
-   	    S.CODIGO, 
-    	    S.DESCRICAO, 
-    	    S.DATAHORA, 
-    	    S.STATUS, 
-    	    F.NOME AS FUNCIONARIO_RESPONSAVEL, 
-    	    C.NOME AS CLIENTE_SOLICITANTE
+	S.CODIGO, 
+    S.DESCRICAO, 
+    S.DATAHORA, 
+    S.STATUS, 
+    F.NOME AS FUNCIONARIO_RESPONSAVEL, 
+    C.NOME AS CLIENTE_SOLICITANTE
 FROM SOLICITACAO S
 JOIN FUNCIONARIO F ON S.ID_SUPORTE = F.IDFUNCIONARIO
 JOIN CLIENTE C ON S.ID_CLIENTE = C.IDCLIENTE
