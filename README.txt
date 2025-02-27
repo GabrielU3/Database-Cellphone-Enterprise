@@ -31,7 +31,7 @@ Documentação.pdf: Contains documentation regarding the creation and implementa
 
 main_database.sql: Contains the main SQL for implementing the created database
 
-triggers.sql: Contains some triggers created for better database functioning
+triggers.sql: Contains some stored procedures(functions), triggers and views created for better database functioning
 
 inserts.sql: Contains some inserts created to test the operation of the database
 
